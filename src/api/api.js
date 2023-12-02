@@ -1,13 +1,16 @@
 import axios from 'axios';
+import {formatToThreeDigits} from '../utils/common'
 
-
-export function getRequest(path) {
+export const getPokemonList = () => {
     try {
-         axios.get( `https://pokeapi.co/api/v2/${path || 'pokemon'}`).then( resp => {
-             const pokemonList = resp.data.results;
-             console.log(pokemonList);
-         });
+        return axios.get(`https://pokeapi.co/api/v2/pokemon?limit=60`).then(resp => {
+            return resp.data.results.map((pokemon, index) => ({
+                ...pokemon,
+                id: formatToThreeDigits(index + 1),
+            }));
+        });
     } catch (error) {
         console.error(error);
     }
+    return {}
 }

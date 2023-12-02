@@ -4,7 +4,6 @@ const Home = () => {
         <div style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
             Asıll
         </div>
-
     </main>
   )
 }
