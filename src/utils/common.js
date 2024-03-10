@@ -4,4 +4,8 @@ export const formatToThreeDigits = (number) => {
         numberString = '0' + numberString;
     }
     return numberString;
+};
+
+export const capitilazeFirstLetter = (string) => {
+    return string[0].toUpperCase() + string.substring(1);
 }
