@@ -19,11 +19,40 @@ export const getPokemonList = () => {
 export const getPokemonById = (pokeId) => {
     try {
         return axios.get(`https://pokeapi.co/api/v2/pokemon/${pokeId}`).then(resp => {
-            console.log(resp);
             return resp;
         });
     } catch (error) {
         console.error(error);
     }
     return {}
+}
+
+export const getPokemonEvolutionById = (pokeId) => {
+    try {
+        return axios.get(`https://pokeapi.co/api/v2/evolution-chain/2`).then(resp => {
+            return resp;
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const getPokemonSpeciesById = (pokeId) => {
+    try {
+        return axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokeId}`).then(resp => {
+            return resp;
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const genericGetterService = (url) => {
+    try {
+        return axios.get(`${url}`).then(resp => {
+            return resp.data;
+        });
+    } catch (error) {
+        console.error(error);
+    }
 }

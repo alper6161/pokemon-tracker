@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getPokemonById} from "@/api/api";
+import {genericGetterService, getPokemonById, getPokemonSpeciesById} from "@/api/api";
 import {useRouter} from "next/router";
 import {capitilazeFirstLetter, formatToThreeDigits} from "@/utils/common";
 import {NavigateBefore, NavigateNext} from "@mui/icons-material";
@@ -8,13 +8,35 @@ import {IconButton} from "@mui/material";
 const Pokemon = () => {
     const router = useRouter();
     const [pokemonDetails, setPokemonDetails] = useState({});
+    const [evolutionDetails, setEvolutionDetails] = useState([]);
+    const [pokemonSpecies, setPokemonSpecies] = useState({});
 
     useEffect(() => {
         if (router.query.id) {
             getPokemonById(router.query.id).then(resp => {
-                console.log(resp.data);
                 setPokemonDetails(resp.data);
             });
+            getPokemonSpeciesById(router.query.id).then(resp => {
+                setPokemonSpecies(resp.data);
+                genericGetterService(resp.data.evolution_chain.url)
+                    .then(chainDetails => {
+                        const evolutions = [];
+                        let chainStart = chainDetails.chain;
+                        let index = 0;
+                        while (chainStart?.species?.name) {
+                            const pokeId = Number(router.query.id) + index;
+                            evolutions.push(
+                                {
+                                    name: chainStart.species.name,
+                                    image: <img src={`/pokemons/${formatToThreeDigits(pokeId)}.png`}
+                                                alt={chainStart?.species?.name} height='170px'/>
+                                })
+                            chainStart = chainStart.evolves_to[0];
+                            index++;
+                        }
+                        setEvolutionDetails(evolutions);
+                    });
+            })
         }
     }, [router.query.id])
 
@@ -44,7 +66,7 @@ const Pokemon = () => {
                                     <NavigateNext/>
                                 </IconButton>
                             </div>
-                            <div style={{flex: 10, display: 'flex'}}>
+                            <div style={{flex: 1, display: 'flex'}}>
                                 <div style={{flex: 1, display: 'flex', justifyContent: 'center'}}>
                                     <img src={`/pokemons/${formatToThreeDigits(pokemonDetails.id)}.png`}
                                          alt={pokemonDetails.name} height='340px'/>
@@ -63,6 +85,23 @@ const Pokemon = () => {
                                         <span> Height: </span> <span> {pokemonDetails.height}</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div style={{flex: 1, background: 'black', display: 'flex', alignItems: 'center'}}>
+                                {
+                                    evolutionDetails?.map((evolution, index) => <>
+                                            <div className="centered"
+                                                 style={{flex: 1, color: 'white', flexDirection: 'column'}}>
+                                                {evolution.image}
+                                                {evolution.name}
+                                            </div>
+                                            {
+                                                index < evolutionDetails.length - 1 &&
+                                                <NavigateNext sx={{color: 'white', fontSize: '96px'}}>
+                                                </NavigateNext>
+                                            }
+                                        </>
+                                    )
+                                }
                             </div>
                         </>
                     ) :
