@@ -12,9 +12,6 @@ const Pokemons = () => {
 
     return (
         <div style={{overflow: 'hidden'}}>
-            <div className="centered">
-                <img src={'/pokemon_logo.png'} alt={'Pokemon'} height={'100px'} />
-            </div>
             <PokemonGrid pokemonList={pokemonList} />
         </div>
     );

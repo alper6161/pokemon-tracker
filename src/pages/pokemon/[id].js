@@ -24,12 +24,13 @@ const Pokemon = () => {
                         let chainStart = chainDetails.chain;
                         let index = 0;
                         while (chainStart?.species?.name) {
-                            const pokeId = Number(router.query.id) + index;
+                            const pokeId = chainStart.species.url.split('/')[6];
                             evolutions.push(
                                 {
                                     name: chainStart.species.name,
                                     image: <img src={`/pokemons/${formatToThreeDigits(pokeId)}.png`}
-                                                alt={chainStart?.species?.name} height='170px'/>
+                                                alt={chainStart?.species?.name} height='170px'/>,
+                                    pokeId
                                 })
                             chainStart = chainStart.evolves_to[0];
                             index++;
@@ -86,13 +87,17 @@ const Pokemon = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div style={{flex: 1, background: 'black', display: 'flex', alignItems: 'center'}}>
+                            <div style={{flex: 1, background: '#2C3035', display: 'flex', alignItems: 'center', margin: '2rem', borderRadius: '2rem'}}>
                                 {
                                     evolutionDetails?.map((evolution, index) => <>
                                             <div className="centered"
-                                                 style={{flex: 1, color: 'white', flexDirection: 'column'}}>
-                                                {evolution.image}
-                                                {evolution.name}
+                                                 style={{flex: 1, color: 'white', flexDirection: 'column', cursor: 'pointer'}}
+                                                 onClick={() => router.push(`/pokemon/${evolution.pokeId}`)}>
+                                                <div style={{padding: '1.5rem', border: '1px solid white',
+                                                    background: evolution.name === pokemonDetails.name ? '#E1911A' : 'gray', borderRadius: '10rem'}}>
+                                                    {evolution.image}
+                                                </div>
+                                                {capitilazeFirstLetter(evolution.name)}
                                             </div>
                                             {
                                                 index < evolutionDetails.length - 1 &&
