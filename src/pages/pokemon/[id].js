@@ -41,41 +41,60 @@ const Pokemon = () => {
                     });
             })
         }
-    }, [router.query.id])
+    }, [router.query.id]);
+
+    const getPokemonHeader = () => (
+        <div style={{
+            flex: 1,
+            maxHeight: '3rem',
+            fontWeight: 'bolder',
+            fontSize: '30px',
+            position: 'relative'
+        }} className="centered">
+            {
+                router.query.id - 1 > 0 &&
+                <IconButton style={{position: 'absolute', left: '2rem'}}
+                            onClick={() => router.push(`/pokemon/${parseInt(router.query.id) - 1 || 1}`)}>
+                    <NavigateBefore/>
+                </IconButton>
+            }
+            {capitilazeFirstLetter(pokemonDetails.name)} #{formatToThreeDigits(pokemonDetails.id)}
+            <IconButton style={{position: 'absolute', right: '2rem'}}
+                        onClick={() => router.push(`/pokemon/${parseInt(router.query.id) + 1}`)}>
+                <NavigateNext/>
+            </IconButton>
+        </div>);
+
+    const getTypeContainer = (types) => (
+        <div style={{flex: 1, flexDirection:'column'}}>
+            <h2>Types:</h2>
+            {
+                types.map((type) => (
+                    <div style={{display: 'flex', width: '8rem', margin: '.5rem', border: '1px solid black',padding: '.25rem', borderRadius: '3rem', borderColor: 'white'}}>
+                        <img src={`/elements/${type.type.name}.svg`}
+                             alt={type.type.name} height='40px' style={{flex: 1}}/>
+                        <div className='centered' style={{flex: 1}}>
+                            {capitilazeFirstLetter(type.type.name)}
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    );
 
     return (
         <div style={{flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
             {
                 pokemonDetails?.name ?
                     (<>
-                            <div style={{
-                                flex: 1,
-                                maxHeight: '3rem',
-                                fontWeight: 'bolder',
-                                fontSize: '30px',
-                                position: 'relative'
-                            }}
-                                 className="centered">
-                                {
-                                    router.query.id - 1 > 0 &&
-                                    <IconButton style={{position: 'absolute', left: '2rem'}}
-                                                onClick={() => router.push(`/pokemon/${parseInt(router.query.id) - 1 || 1}`)}>
-                                        <NavigateBefore/>
-                                    </IconButton>
-                                }
-                                {capitilazeFirstLetter(pokemonDetails.name)} #{formatToThreeDigits(pokemonDetails.id)}
-                                <IconButton style={{position: 'absolute', right: '2rem'}}
-                                            onClick={() => router.push(`/pokemon/${parseInt(router.query.id) + 1}`)}>
-                                    <NavigateNext/>
-                                </IconButton>
-                            </div>
+                            {getPokemonHeader()}
                             <div style={{flex: 1, display: 'flex'}}>
                                 <div style={{flex: 1, display: 'flex', justifyContent: 'center'}}>
                                     <img src={`/pokemons/${formatToThreeDigits(pokemonDetails.id)}.png`}
                                          alt={pokemonDetails.name} height='340px'/>
                                 </div>
                                 <div style={{
-                                    background: 'gray',
+                                    background: systemColors.darkGray,
                                     borderRadius: '1rem',
                                     color: 'white',
                                     display: 'flex',
@@ -84,19 +103,36 @@ const Pokemon = () => {
                                     margin: '1rem',
                                     padding: '1rem'
                                 }}>
-                                    <div>
+                                    <div style={{flex: 1}}>
                                         <span> Height: </span> <span> {pokemonDetails.height}</span>
                                     </div>
+                                    {getTypeContainer(pokemonDetails.types)}
                                 </div>
                             </div>
-                            <div style={{flex: 1, background: systemColors.darkGray, display: 'flex', alignItems: 'center', margin: '2rem', borderRadius: '2rem'}}>
+                            <div style={{
+                                flex: 1,
+                                background: systemColors.darkGray,
+                                display: 'flex',
+                                alignItems: 'center',
+                                margin: '2rem',
+                                borderRadius: '2rem'
+                            }}>
                                 {
                                     evolutionDetails?.map((evolution, index) => <>
                                             <div className="centered"
-                                                 style={{flex: 1, color: 'white', flexDirection: 'column', cursor: 'pointer'}}
+                                                 style={{
+                                                     flex: 1,
+                                                     color: 'white',
+                                                     flexDirection: 'column',
+                                                     cursor: 'pointer'
+                                                 }}
                                                  onClick={() => router.push(`/pokemon/${evolution.pokeId}`)}>
-                                                <div style={{padding: '1.5rem', border: '1px solid white',
-                                                    background: evolution.name === pokemonDetails.name ? '#E1911A' : 'gray', borderRadius: '10rem'}}>
+                                                <div style={{
+                                                    padding: '1.5rem',
+                                                    border: '1px solid white',
+                                                    background: evolution.name === pokemonDetails.name ? '#E1911A' : 'gray',
+                                                    borderRadius: '10rem'
+                                                }}>
                                                     {evolution.image}
                                                 </div>
                                                 {capitilazeFirstLetter(evolution.name)}
