@@ -8,7 +8,7 @@ const Pokemons = () => {
         getPokemonList().then(resp => {
             setPokemonList(resp);
         })
-    }, [])
+    }, []);
 
     return (
         <div style={{overflow: 'hidden'}}>

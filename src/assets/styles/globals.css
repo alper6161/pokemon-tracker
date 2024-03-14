@@ -105,3 +105,16 @@ a {
     color-scheme: dark;
   }
 }
+
+.background-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #9CBFA7;
+  overflow: auto;
+}
+
+.header-bar {
+  background: #2C3035;
+  position: relative;
+}

@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import {capitilazeFirstLetter, formatToThreeDigits} from "@/utils/common";
 import {NavigateBefore, NavigateNext} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
+import {systemColors} from "@/utils/constants";
 
 const Pokemon = () => {
     const router = useRouter();
@@ -15,6 +16,7 @@ const Pokemon = () => {
         if (router.query.id) {
             getPokemonById(router.query.id).then(resp => {
                 setPokemonDetails(resp.data);
+                console.log(resp.data);
             });
             getPokemonSpeciesById(router.query.id).then(resp => {
                 setPokemonSpecies(resp.data);
@@ -73,12 +75,12 @@ const Pokemon = () => {
                                          alt={pokemonDetails.name} height='340px'/>
                                 </div>
                                 <div style={{
-                                    flex: 1,
-                                    borderRadius: '1rem',
-                                    display: 'flex',
-                                    justifyContent: 'center',
                                     background: 'gray',
+                                    borderRadius: '1rem',
                                     color: 'white',
+                                    display: 'flex',
+                                    flex: 1,
+                                    justifyContent: 'center',
                                     margin: '1rem',
                                     padding: '1rem'
                                 }}>
@@ -87,7 +89,7 @@ const Pokemon = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div style={{flex: 1, background: '#2C3035', display: 'flex', alignItems: 'center', margin: '2rem', borderRadius: '2rem'}}>
+                            <div style={{flex: 1, background: systemColors.darkGray, display: 'flex', alignItems: 'center', margin: '2rem', borderRadius: '2rem'}}>
                                 {
                                     evolutionDetails?.map((evolution, index) => <>
                                             <div className="centered"
