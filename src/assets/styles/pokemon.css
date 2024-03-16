@@ -33,6 +33,17 @@
     animation: spin 1s linear infinite;
 }
 
+.details-card {
+    background: #2C3035;
+    border-radius: 1rem;
+    color: white;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    margin: .75rem;
+    padding: 1rem;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
