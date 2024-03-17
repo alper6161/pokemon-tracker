@@ -27,16 +27,6 @@ export const getPokemonById = (pokeId) => {
     return {}
 }
 
-export const getPokemonAbilitiesById = (pokeId) => {
-    try {
-        return axios.get(`https://pokeapi.co/api/v2/ability/${pokeId}`).then(resp => {
-            return resp;
-        });
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 export const getPokemonSpeciesById = (pokeId) => {
     try {
         return axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokeId}`).then(resp => {

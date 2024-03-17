@@ -107,14 +107,31 @@ a {
 }
 
 .background-app {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #9CBFA7;
-  overflow: auto;
 }
 
 .header-bar {
   background: #2C3035;
   position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2C3035;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #484e57;
 }
