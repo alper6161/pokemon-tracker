@@ -19,8 +19,8 @@ export const StatChart = ({data, name}) => {
                 <PolarGrid/>
                 <Tooltip />
                 <PolarAngleAxis dataKey="stat"/>
-                <PolarRadiusAxis/>
-                <Radar name={capitilazeFirstLetter(name)} dataKey="base_stat" stroke={systemColors.yellow} fill={systemColors.yellow} fillOpacity={0.6}/>
+                <PolarRadiusAxis domain={[0, 140]}/>
+                <Radar name={capitilazeFirstLetter(name)} dataKey="base_stat" stroke={systemColors.yellow} fill={systemColors.yellow} fillOpacity={0.6} isAnimationActive={false}/>
             </RadarChart>
         </ResponsiveContainer>
     );

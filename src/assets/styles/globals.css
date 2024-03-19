@@ -110,6 +110,8 @@ a {
   display: flex;
   flex-direction: column;
   background: #9CBFA7;
+  height: 100vh;
+  overflow: auto;
 }
 
 .header-bar {

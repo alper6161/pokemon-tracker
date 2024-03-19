@@ -7,5 +7,5 @@ export const formatToThreeDigits = (number) => {
 };
 
 export const capitilazeFirstLetter = (string) => {
-    return string[0].toUpperCase() + string.substring(1);
+    return string ? string[0].toUpperCase() + string.substring(1) : '';
 }

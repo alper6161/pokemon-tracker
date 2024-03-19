@@ -15,9 +15,10 @@ export const Header = () => {
     }, []);
 
     return (
-        <div className="centered header-bar" onClick={() => router.push(`/pokemons`)}>
+        <div className="centered header-bar">
             <img src={'/pokemon_logo.png'} alt={'Pokemon'} height={'85px'}
-                 style={{cursor: 'pointer', padding: '.75rem 0'}}/>
+                 style={{cursor: 'pointer', padding: '.75rem 0'}}
+                 onClick={() => router.push(`/pokemons`)}/>
             <div style={{position: 'absolute', right: '1rem', background: systemColors.white}}>
                 <Autocomplete
                     disablePortal

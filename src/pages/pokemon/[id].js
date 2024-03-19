@@ -12,11 +12,14 @@ export const Pokemon = () => {
     const router = useRouter();
     const [pokemonDetails, setPokemonDetails] = useState({});
     const [evolutionDetails, setEvolutionDetails] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (router.query.id) {
+            setIsLoading(true);
             getPokemonById(router.query.id).then(resp => {
                 setPokemonDetails(resp.data);
+                setIsLoading(false);
             });
             getPokemonSpeciesById(router.query.id).then(resp => {
                 genericGetterService(resp.data.evolution_chain.url)
@@ -51,96 +54,101 @@ export const Pokemon = () => {
         </div>);
 
     const getTypeContainer = (types) => (
-        <div style={{flex: 1, flexDirection: 'column'}}>
+        <div style={{flex: 1}}>
             <h2>Types:</h2>
-            {
-                types.map((type) => (
-                    <div key={type.type.name} style={{
-                        display: 'flex',
-                        width: '8rem',
-                        margin: '1rem',
-                        border: '1px solid black',
-                        padding: '.25rem',
-                        borderRadius: '3rem',
-                        borderColor: 'white'
-                    }}>
-                        <img src={`/elements/${type.type.name}.svg`}
-                             alt={type.type.name} height='40px' style={{flex: 1}}/>
-                        <div className='centered' style={{flex: 1}}>
-                            {capitilazeFirstLetter(type.type.name)}
+            <div style={{display: 'flex'}}>
+                {
+                    types.map((type) => (
+                        <div key={type.type.name} style={{
+                            display: 'flex',
+                            width: '8rem',
+                            margin: '1rem',
+                            border: '1px solid black',
+                            padding: '.25rem',
+                            borderRadius: '3rem',
+                            borderColor: 'white'
+                        }}>
+                            <img src={`/elements/${type.type.name}.svg`}
+                                 alt={type.type.name} height='40px' style={{flex: 1}}/>
+                            <div className='centered' style={{flex: 1}}>
+                                {capitilazeFirstLetter(type.type.name)}
+                            </div>
                         </div>
-                    </div>
-                ))
-            }
+                    ))
+                }
+            </div>
         </div>
     );
 
     const getAbilityContainer = (abilities) => (
-        <div style={{flex: 1, flexDirection: 'column'}}>
+        <div style={{flex: 1}}>
             <h2>Abilities:</h2>
-            {
-                abilities.map((ability) => (
-                    <div key={ability.ability.name} style={{
-                        display: 'flex',
-                        width: '8rem',
-                        margin: '1rem',
-                        border: '1px solid black',
-                        padding: '.25rem',
-                        borderRadius: '3rem',
-                        borderColor: 'white'
-                    }}>
-                        <div className='centered' style={{flex: 1}}>
-                            {capitilazeFirstLetter(ability.ability.name)}
+            <div style={{display: 'flex'}}>
+                {
+                    abilities.map((ability) => (
+                        <div key={ability.ability.name} style={{
+                            display: 'flex',
+                            width: '8rem',
+                            margin: '1rem',
+                            border: '1px solid black',
+                            padding: '.25rem',
+                            borderRadius: '3rem',
+                            borderColor: 'white'
+                        }}>
+                            <div className='centered' style={{flex: 1}}>
+                                {capitilazeFirstLetter(ability.ability.name)}
+                            </div>
                         </div>
-                    </div>
-                ))
-            }
+                    ))
+                }
+            </div>
         </div>
     );
 
     const getDetailsContainer = () => (
         <div style={{flex: 1, flexDirection: 'column'}}>
             <h2>Details:</h2>
-            <div key='weight' style={{
-                display: 'flex',
-                width: '8rem',
-                margin: '1rem',
-                border: '1px solid black',
-                padding: '.25rem',
-                borderRadius: '3rem',
-                borderColor: 'white'
-            }}>
-                <div className='centered' style={{flex: 1}}>
-                    {capitilazeFirstLetter('Weight')}
+            <div style={{display: 'flex'}}>
+                <div key='weight' style={{
+                    display: 'flex',
+                    width: '8rem',
+                    margin: '1rem',
+                    border: '1px solid black',
+                    padding: '.25rem',
+                    borderRadius: '3rem',
+                    borderColor: 'white'
+                }}>
+                    <div className='centered' style={{flex: 1}}>
+                        {capitilazeFirstLetter('Weight')}
+                    </div>
+                    <div className='centered' style={{flex: 1}}>
+                        {pokemonDetails.weight / 10} kg
+                    </div>
                 </div>
-                <div className='centered' style={{flex: 1}}>
-                    {pokemonDetails.weight / 10} kg
+                <div key='height' style={{
+                    display: 'flex',
+                    width: '8rem',
+                    margin: '1rem',
+                    border: '1px solid black',
+                    padding: '.25rem',
+                    borderRadius: '3rem',
+                    borderColor: 'white'
+                }}>
+                    <div className='centered' style={{flex: 1}}>
+                        {capitilazeFirstLetter('Height')}
+                    </div>
+                    <div className='centered' style={{flex: 1}}>
+                        {pokemonDetails.height} m
+                    </div>
                 </div>
             </div>
-            <div key='height' style={{
-                display: 'flex',
-                width: '8rem',
-                margin: '1rem',
-                border: '1px solid black',
-                padding: '.25rem',
-                borderRadius: '3rem',
-                borderColor: 'white'
-            }}>
-                <div className='centered' style={{flex: 1}}>
-                    {capitilazeFirstLetter('Height')}
-                </div>
-                <div className='centered' style={{flex: 1}}>
-                    {pokemonDetails.height} m
-                </div>
-            </div>
-
         </div>
     );
 
     return (
         <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
             {
-                pokemonDetails?.name ?
+                !isLoading && pokemonDetails?.name ?
                     (<>
                             {getPokemonHeader()}
                             <div style={{flex: 1, display: 'flex', margin: '1rem'}}>
@@ -160,7 +168,7 @@ export const Pokemon = () => {
                                     <StatChart data={pokemonDetails?.stats} name={pokemonDetails?.name}></StatChart>
                                 </div>
                             </div>
-                            <EvolutionContainer evolutionDetails={evolutionDetails} name={pokemonDetails.name} />
+                            <EvolutionContainer evolutionDetails={evolutionDetails} name={pokemonDetails.name}/>
                         </>
                     ) :
                     <div className="centered" style={{flex: 1}}>

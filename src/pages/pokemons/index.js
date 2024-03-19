@@ -11,7 +11,7 @@ const Pokemons = () => {
     }, []);
 
     return (
-        <div style={{overflow: 'hidden'}}>
+        <div>
             <PokemonGrid pokemonList={pokemonList} />
         </div>
     );
