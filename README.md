@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pokemon Tracker
+This project is a Next.js web application where users can easily view all Pokémon and their necessary details. Users can search for various Pokémon, view their details, and compare their strengths.
 
-## Getting Started
+## Access to Web Page
+You can access pokemon tracker web page by using this link
+https://pokemon-tracker-gray.vercel.app/pokemons
 
-First, run the development server:
+## Installation
+If you want to reach code details:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repo:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    ```bash
+    git clone https://github.com/your-username/pokemon-tracker.git
+    ```
 
-You can start editing the page by modifying `app/_app.js`. The page auto-updates as you edit the file.
+2. Navigate to the project directory:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    ```bash
+    cd pokemon-tracker
+    ```
 
-## Learn More
+3. Install the necessary dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    npm install
+    ```
+   
+4. In the project directory, start the application:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    npm start
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. Navigate to `http://localhost:3000` in your browser.
 
-## Deploy on Vercel
+## Use Cases / Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Listing all of the pokemons on the main page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Searching desired pokemons from search bar or list
+
+3. Select a Pokemon to view details and track it.
+
+4. Observing pokemon data, stats and evolution tree on detail page.
+
+5. Switching between pokemon pages from evolution tree
+
+6. Showing stats on radar chart
+
+7. Comparing pokemon stats and details on comparison view
