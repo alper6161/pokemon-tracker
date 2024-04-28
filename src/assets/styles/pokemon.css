@@ -42,6 +42,7 @@
     justify-content: center;
     margin: .75rem;
     padding: 1rem;
+    position: relative;
 }
 
 @keyframes spin {
